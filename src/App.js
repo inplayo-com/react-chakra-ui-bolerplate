@@ -1,24 +1,18 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { Suspense, lazy } from 'react';
+import { ChakraProvider } from '@chakra-ui/react'
+import { Preloader } from 'components/Preloader';
+import theme from 'theme'
+import { ColorModeScript } from '@chakra-ui/color-mode';
 
+const Page = lazy(() => import('components/Page'));
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ChakraProvider theme={theme}>
+      <ColorModeScript initialColorMode={theme.config.initialColorMode} />
+      <Suspense fallback={<Preloader />}>
+        <Page />
+      </Suspense>
+    </ChakraProvider>
   );
 }
 
